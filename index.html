@@ -27,13 +27,13 @@
         <div class="input-group mb-3">
           <input id="search" type="search" class="form-control" placeholder="City Name" aria-label="Search for a city" name="search">
           <div class="input-group-append">
-            <button class="btn btn-primary" type="button" aria-label="search">
+            <button id="btn-search" class="btn btn-primary" type="button" aria-label="search">
               <i aria-hidden="true" class="fas fa-search"></i>
             </button>
           </div>
         </div>
-        <ul class="list-group">
-          <li class="list-group-item" data-location="austin">Austin</li>
+        <ul id="city-list" class="list-group city-list">
+          <li class="list-group-item bg-primary" data-location="austin">Austin</li>
           <li class="list-group-item" data-location="chicaco">Chicago</li>
           <li class="list-group-item" data-location="new-york">New York</li>
           <li class="list-group-item" data-location="orlando">Orlando</li>
@@ -53,8 +53,8 @@
           </h2>
           <p>Temperature: <span id="temperature">90.9 &deg; F</span></p>
           <p>Humidity: <span id="humidity">70</span>%</p>
-          <p>Temperature: <span id="wind-speed">4.7</span> MPH</p>
-          <p>Temperature: <span id="uv-index">
+          <p>Wind Speed: <span id="wind-speed">4.7</span> MPH</p>
+          <p>UV Index: <span id="uv-index">
               <span class="badge badge-danger p-2">9.49</span>
             </span>
           </p>

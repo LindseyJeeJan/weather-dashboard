@@ -91,6 +91,22 @@ h2 .card-image::before{
   content: '⛈';
 }
 
+.btn i, .city-list .list-group-item{
+  cursor: pointer;
+}
+
+.city-list .list-group-item:hover{
+  background-color: lightgrey;
+}
+
+.city-list .list-group-item:active{
+  background-color: #007bff;
+}
+
+.city-list .list-group-item:active, .list-group-item.bg-primary{
+  color: var(--light);
+}
+
 /* Media queries */
 @media screen and (min-width: 769px) and (max-width: 991px) {
   .card-container .card {
