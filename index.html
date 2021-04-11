@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/reset.css" />
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <title>Weather Dashboard</title>
+</head>
+
+<body>
+  <header>
+    <h1 class="bg-dark text-white text-center p-3 m-0">Weather Dashboard</h1>
+  </header>
+  <main>
+
+    <div class="row vh-100">
+      <div class="col-xs-12 col-sm-5 col-md-4 p-4 bg-light">
+
+        <label for="search">Search for a City</label>
+        <div class="input-group mb-3">
+          <input id="search" type="search" class="form-control" placeholder="City Name" aria-label="Search for a city" name="search">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="button" aria-label="search">
+              <i aria-hidden="true" class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item" data-location="austin">Austin</li>
+          <li class="list-group-item" data-location="chicaco">Chicago</li>
+          <li class="list-group-item" data-location="new-york">New York</li>
+          <li class="list-group-item" data-location="orlando">Orlando</li>
+          <li class="list-group-item" data-location="san-francisco">San Francisco</li>
+          <li class="list-group-item" data-location="seattle">Seattle</li>
+          <li class="list-group-item" data-location="denver">Denver</li>
+          <li class="list-group-item" data-location="atlanta">Atlanta</li>
+        </ul>
+
+      </div>
+      <div class="col-xs-12 col-sm-7 col-md-8 p-4">
+        <div class="weather-container">
+          <h2 class="mb-4">
+            <span id="cityName">City Name</span>
+            (<span id="todaysDate">mm/dd/yyyy</span>)
+            <span class="card-image p-2 sun"></span>
+          </h2>
+          <p>Temperature: <span id="temperature">90.9 &deg; F</span></p>
+          <p>Humidity: <span id="humidity">70</span>%</p>
+          <p>Temperature: <span id="wind-speed">4.7</span> MPH</p>
+          <p>Temperature: <span id="uv-index">
+              <span class="badge badge-danger p-2">9.49</span>
+            </span>
+          </p>
+        </div>
+        <div class="forecast mt-4">
+          <h2 class="mb-4">5-Day Forecast</h2>
+          <div class="card-container row">
+
+            <!-- Card 1 -->
+            <div class="card bg-primary">
+              <div class="card-body text-white p-2">
+                <h5 class="card-title">
+                  8/16/2019
+                </h5>
+                <div class="card-image p-2 sun"></div>
+                <h6 class="card-subtitle my-3">Temp:
+                  <span class="temperature">91.38</span>&deg;F
+                </h6>
+                <h6 class="card-subtitle mt-2">Humidity:
+                  <span class="humidity">33</span>%
+                </h6>
+              </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="card bg-primary">
+              <div class="card-body text-white p-2">
+                <h5 class="card-title">
+                  8/16/2019
+                </h5>
+                <div class="card-image p-2 overcast"></div>
+                <h6 class="card-subtitle my-3">Temp:
+                  <span class="temperature">91.38</span>&deg;F
+                </h6>
+                <h6 class="card-subtitle mt-2">Humidity:
+                  <span class="humidity">33</span>%
+                </h6>
+              </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="card bg-primary">
+              <div class="card-body text-white p-2">
+                <h5 class="card-title">
+                  8/16/2019
+                </h5>
+                <div class="card-image p-2 cloudy"></div>
+                <h6 class="card-subtitle my-3">Temp:
+                  <span class="temperature">91.38</span>&deg;F
+                </h6>
+                <h6 class="card-subtitle mt-2">Humidity:
+                  <span class="humidity">33</span>%
+                </h6>
+              </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="card bg-primary">
+              <div class="card-body text-white p-2">
+                <h5 class="card-title">
+                  8/16/2019
+                </h5>
+                <div class="card-image p-2 snow"></div>
+                <h6 class="card-subtitle my-3">Temp:
+                  <span class="temperature">91.38</span>&deg;F
+                </h6>
+                <h6 class="card-subtitle mt-2">Humidity:
+                  <span class="humidity">33</span>%
+                </h6>
+              </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="card bg-primary">
+              <div class="card-body text-white p-2">
+                <h5 class="card-title">
+                  8/16/2019
+                </h5>
+                <div class="card-image p-2 rain"></div>
+                <h6 class="card-subtitle my-3">Temp:
+                  <span class="temperature">91.38</span>&deg;F
+                </h6>
+                <h6 class="card-subtitle mt-2">Humidity:
+                  <span class="humidity">33</span>%
+                </h6>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="./assets/js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+:root {
+--light: #fff;
+--dark: #000;
+}
+
+/* Element styles */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Quicksand', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 2.3rem;
+}
+
+h2 {
+  font-size: 1.7rem;
+}
+/* Class styles */
+.weather-container {
+    border-radius: .25rem;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.weather-container, .forecast{
+    display: block;
+    padding: .75rem 1.25rem;
+}
+
+.weather-container p {
+  margin-bottom: 1.4rem;
+}
+
+.weather-container .badge {
+  font-size: .9rem;
+  font-weight: normal;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card-container .card {
+  flex: 0 0 calc(20% - 10px);
+  margin: 5px;
+}
+
+.card-title{
+  font-size: 1.25rem;
+  white-space: nowrap;
+}
+
+h2 .card-image::before{
+  font-size: 2.2rem;
+  line-height: .9;
+  vertical-align: middle;
+}
+
+.card-container .card-image::before{
+  display: block;
+  font-size: 2rem;
+}
+
+.sun::before{
+  content: '☀️';
+}
+
+.overcast::before{
+  content: '⛅️';
+}
+
+.rain::before{
+  content: '☔️';
+}
+
+.cloudy::before{
+  content: '☁️';
+}
+
+.snow::before{
+  content: '🌨';
+}
+
+.thunder::before{
+  content: '⛈';
+}
+
+/* Media queries */
+@media screen and (min-width: 769px) and (max-width: 991px) {
+  .card-container .card {
+    flex: 0 0 calc(33.333% - 10px);
+  }
+}
+@media screen and (max-width: 768px) {
+  .card-container .card {
+     flex: 0 0 calc(100% - 10px);
+  }
+}
+
+
