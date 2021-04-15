@@ -56,39 +56,14 @@ h2 {
   white-space: nowrap;
 }
 
-h2 .card-image::before{
-  font-size: 2.2rem;
-  line-height: .9;
-  vertical-align: middle;
+.card-image{
+  display: inline-block;
+  width: 45px;
 }
 
-.card-container .card-image::before{
-  display: block;
+.card-container .card-image{
   font-size: 2rem;
-}
-
-.sun::before{
-  content: '☀️';
-}
-
-.overcast::before{
-  content: '⛅️';
-}
-
-.rain::before{
-  content: '☔️';
-}
-
-.cloudy::before{
-  content: '☁️';
-}
-
-.snow::before{
-  content: '🌨';
-}
-
-.thunder::before{
-  content: '⛈';
+  width: 15px;
 }
 
 .btn i, .city-list .list-group-item{

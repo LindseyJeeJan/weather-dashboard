@@ -7,6 +7,7 @@ var temperature = $('#temperature');
 var humidity = $('#humidity');
 var windSpeed = $('#wind-speed');
 var uvIndex = $('#uv-index .badge');
+var weatherIcon = $('#h2-card-image');
 
 // Click event to capture when user clicks search
 btnSearch.on('click', function(event) {
@@ -40,6 +41,10 @@ function getApi(location) {
         windSpeed.text(data.current.wind_speed);
         uvIndex.text(data.current.uvi);
 
+        var icon = data.current.weather[0].icon;
+        var iconLocation = ("http://openweathermap.org/img/wn/" + icon +"@2x.png");
+        weatherIcon.attr('src', iconLocation);
+        
         // If the UV index is less than or equal to 2, it is safe, green
         var uvindex = data.current.uvi;
         if (uvindex <= 2){
