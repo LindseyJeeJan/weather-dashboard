@@ -69,17 +69,22 @@ function getApi(location) {
         // Store the array of forecasts
         var forecasts = data.daily;
         var counter = 0;
-        // Loop through the forecast array. For the first 5, write the data to the bootstrap cards in the UI.
+        // Loop through the forecast array. For the first 5, write the data to the bootstrap cards in the UI. Add temp, humidity and the icon from the forecast
         for (var i = 0; i < 5; i++) {
             var forecastTemp = forecasts[i].temp.day;
             forecastTemp = parseFloat(forecastTemp).toFixed(1);
             var forecastHumidity = forecasts[i].humidity;
-            var tempContainer = $('.card')[counter];
-            var humidityContainer = $('.card')[counter];
-            $(tempContainer).find('.temperature').text(forecastTemp);
-            $(humidityContainer).find('.humidity').text(forecastHumidity);
+            var forecastIcon = forecasts[i].weather[0].icon;
+            var forecastIconLocation = ("http://openweathermap.org/img/wn/" + forecastIcon +"@2x.png");
+            var forecastContainer = $('.card')[counter];
+            $(forecastContainer).find('.temperature').text(forecastTemp);
+            $(forecastContainer).find('.humidity').text(forecastHumidity);
+            $(forecastContainer).find('.humidity').text(forecastHumidity);
+            $(forecastContainer).find('img.card-image').attr('src', forecastIconLocation);
+            // increment counter for looping
             counter++
-        }
+            
+            }
         // display these values from moment
         showForecastDates();
         showTodaysDate();

@@ -61,11 +61,6 @@ h2 {
   width: 45px;
 }
 
-.card-container .card-image{
-  font-size: 2rem;
-  width: 15px;
-}
-
 .btn i, .city-list .list-group-item{
   cursor: pointer;
 }
