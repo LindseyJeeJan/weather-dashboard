@@ -29,7 +29,8 @@ btnSearch.on('click', function(event) {
 // Click event to capture user clicking on a city
 cityList.on('click', 'li', function(event) {
      // change background of selected city 
-    var listLocation = $(this).attr('data-location');
+    var listLocation = $(this).text();
+    console.log(listLocation);
     $('li').removeClass('bg-primary');
     $(this).addClass('bg-primary');
     // function to retrieve the longitude and latitude of the city clicked
@@ -47,7 +48,7 @@ function convertToLongLat(city){
     city + '&limit=5&appid=ce4222a2bf38275175e19449b4ee48a5';
     fetch(requestUrl)
         .then(function (response) {
-            // If city information is not found, instruct the user to enter a new
+            // If city information is not found, display error
             if (response.status === 404) {
                 console.log('404');
                 errorCitySearch.show();
@@ -62,9 +63,9 @@ function convertToLongLat(city){
             } else {
                 var cityStateCountry = (data[0].local_names.en + ', ' + data[0].country);
             }
-            // Add item to search history
+            // Add city to search history
             var newListItem = $('<li class="list-group-item">');
-            newListItem.text(cityStateCountry);
+            newListItem.text(data[0].local_names.en);
             cityList.append(newListItem);
             // Display location city, state (if US) and country
             cityName.text(cityStateCountry);
