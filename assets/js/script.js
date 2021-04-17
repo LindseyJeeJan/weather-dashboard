@@ -12,6 +12,7 @@ var errorMessage = $('#error');
 var errorCitySearch = $('#error-city');
 
 var latLong = [];
+var btnClicked = false;
 
 // Click event to capture when user clicks search
 btnSearch.on('click', function(event) {
@@ -22,19 +23,22 @@ btnSearch.on('click', function(event) {
         errorMessage.show();
         return;
     }
+    $('li').removeClass('bg-primary');
     // function to retrieve the longitude and latitude of the city searched
     convertToLongLat(searchLocation);
+    btnClicked = true;
 });
 
 // Click event to capture user clicking on a city
 cityList.on('click', 'li', function(event) {
      // change background of selected city 
-    var listLocation = $(this).text();
+    var listLocation = $(this).find('.localCityName').text();
     console.log(listLocation);
     $('li').removeClass('bg-primary');
     $(this).addClass('bg-primary');
     // function to retrieve the longitude and latitude of the city clicked
     convertToLongLat(listLocation);
+    btnClicked = false;
 });
 
 function resetErrorMessages() {
@@ -63,10 +67,23 @@ function convertToLongLat(city){
             } else {
                 var cityStateCountry = (data[0].local_names.en + ', ' + data[0].country);
             }
-            // Add city to search history
-            var newListItem = $('<li class="list-group-item">');
-            newListItem.text(data[0].local_names.en);
-            cityList.append(newListItem);
+            // Add city to search history when new city is searched 
+            if (btnClicked === true){
+                var newListItem = $('<li class="list-group-item bg-primary">');  
+                var newListItemCity = $('<span class="localCityName">');   
+                newListItemCity.text(data[0].local_names.en);
+                var newListItemOther = $('<span>');  
+                // get specific location information
+                if ((data[0].country) == "US") {
+                    newListItemOther.text(', ' + data[0].state);
+                } else {
+                    newListItemOther.text(', ' + data[0].country);
+                }
+                newListItem.append(newListItemCity).append(newListItemOther);
+                cityList.append(newListItem);
+                
+            }
+            
             // Display location city, state (if US) and country
             cityName.text(cityStateCountry);
             // store longitude and latitude in array, but empty it first
