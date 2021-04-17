@@ -38,17 +38,13 @@
             <span class="bold">Error:</span>
             Enter a city name to perform a search.
           </div>
+          <div id="error-city" style="display: none;" class="alert alert-danger">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span class="bold">Error:</span>
+            City not found. Enter a new city name.
+          </div>
           <h5>Search History</h5>
-          <ul id="city-list" class="list-group city-list">
-            <li class="list-group-item" data-location="austin">Austin</li>
-            <li class="list-group-item" data-location="chicaco">Chicago</li>
-            <li class="list-group-item" data-location="new-york">New York</li>
-            <li class="list-group-item" data-location="orlando">Orlando</li>
-            <li class="list-group-item" data-location="san-francisco">San Francisco</li>
-            <li class="list-group-item" data-location="seattle">Seattle</li>
-            <li class="list-group-item" data-location="denver">Denver</li>
-            <li class="list-group-item" data-location="atlanta">Atlanta</li>
-          </ul>
+          <ul id="city-list" class="list-group city-list"></ul>
         </aside>
       </div>
 

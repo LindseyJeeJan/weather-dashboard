@@ -81,6 +81,10 @@ h2 {
   font-weight: bold;
 }
 
+.alert{
+  line-height: 1.4;
+}
+
 /* Media queries */
 @media screen and (min-width: 769px) and (max-width: 991px) {
   .card-container .card {
