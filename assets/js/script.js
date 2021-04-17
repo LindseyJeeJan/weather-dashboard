@@ -10,30 +10,54 @@ var uvIndex = $('#uv-index .badge');
 var weatherIcon = $('#h2-card-image');
 var errorMessage = $('#error');
 
+var latLong = [];
+
 // Click event to capture when user clicks search
 btnSearch.on('click', function(event) {
     event.preventDefault();
     errorMessage.hide();
-    var location = searchInput.val().trim();
-    if (location === ""){
+    var searchLocation = searchInput.val().trim();
+    if (searchLocation === ""){
         // return if search empty
         errorMessage.show();
         return;
     }
-    getApi(location); 
+    // function to retrieve the longitude and latitude of the city searched
+    var coordinates = convertToLongLat(searchLocation);
 });
 
 // Click event to capture user clicking on a city
 cityList.on('click', 'li', function(event) {
-    var location = $(this).attr('data-location');
+    var listLocation = $(this).attr('data-location');
+
     $('li').removeClass('bg-primary');
     $(this).addClass('bg-primary');
-    getApi(location);
+    // function to retrieve the longitude and latitude of the city clicked
+    convertToLongLat(listLocation);
 });
 
+// Convert the city name to long and lat for the Open API
+function convertToLongLat(cityName){
+    var requestUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' +
+    cityName + '&limit=5&appid=ce4222a2bf38275175e19449b4ee48a5';
+    fetch(requestUrl)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            // store longitude and latitude in array
+            latLong.push(data[0].lat);
+            latLong.push(data[0].lon);
+            // retrieve weather data for this city from the API
+            getApi(latLong);
+        })
+}
+    
 // Get data from the Open Weather API; excluding some data and in imperial format
-function getApi(location) {
-  var requestUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=33.441792&lon=-94.037689&exclude=minutely,hourly,alerts&units=imperial&appid=ce4222a2bf38275175e19449b4ee48a5';
+function getApi(locationCoordinates) {
+    var latitudeVal = locationCoordinates[0];
+    var longitudeVal = locationCoordinates[1];
+  var requestUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latitudeVal + '&lon=' + longitudeVal + '&exclude=minutely,hourly,alerts&units=imperial&appid=ce4222a2bf38275175e19449b4ee48a5';
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
