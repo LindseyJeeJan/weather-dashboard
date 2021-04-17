@@ -8,13 +8,16 @@ var humidity = $('#humidity');
 var windSpeed = $('#wind-speed');
 var uvIndex = $('#uv-index .badge');
 var weatherIcon = $('#h2-card-image');
+var errorMessage = $('#error');
 
 // Click event to capture when user clicks search
 btnSearch.on('click', function(event) {
     event.preventDefault();
+    errorMessage.hide();
     var location = searchInput.val().trim();
     if (location === ""){
         // return if search empty
+        errorMessage.show();
         return;
     }
     getApi(location); 
@@ -23,6 +26,8 @@ btnSearch.on('click', function(event) {
 // Click event to capture user clicking on a city
 cityList.on('click', 'li', function(event) {
     var location = $(this).attr('data-location');
+    $('li').removeClass('bg-primary');
+    $(this).addClass('bg-primary');
     getApi(location);
 });
 
@@ -45,12 +50,13 @@ function getApi(location) {
         var iconLocation = ("http://openweathermap.org/img/wn/" + icon +"@2x.png");
         weatherIcon.attr('src', iconLocation);
         
-        // If the UV index is less than or equal to 2, it is safe, green
+       // Get the UV index and display the appropriate badge color according to the conditions
         var uvindex = data.current.uvi;
         if (uvindex <= 2){
+             // Less than or equal to 2 is favorable, green
             uvIndex.addClass('badge-success');
         } else if (uvindex <= 7) {
-            // Between 3-7, it is moderate, yellow
+            // Between 3-7 is moderate, yellow
             uvIndex.addClass('badge-warning');
         } else {
              // Over 8 is severe, red
@@ -71,23 +77,25 @@ function getApi(location) {
         var counter = 0;
         // Loop through the forecast array. For the first 5, write the data to the bootstrap cards in the UI. Add temp, humidity and the icon from the forecast
         for (var i = 0; i < 5; i++) {
+            // store the forecast data 
             var forecastTemp = forecasts[i].temp.day;
             forecastTemp = parseFloat(forecastTemp).toFixed(1);
             var forecastHumidity = forecasts[i].humidity;
             var forecastIcon = forecasts[i].weather[0].icon;
             var forecastIconLocation = ("http://openweathermap.org/img/wn/" + forecastIcon +"@2x.png");
+            
+            // write the forecast data to the page
             var forecastContainer = $('.card')[counter];
             $(forecastContainer).find('.temperature').text(forecastTemp);
             $(forecastContainer).find('.humidity').text(forecastHumidity);
             $(forecastContainer).find('.humidity').text(forecastHumidity);
             $(forecastContainer).find('img.card-image').attr('src', forecastIconLocation);
+
             // increment counter for looping
-            counter++
-            
-            }
+            counter++;
+        }
         // display these values from moment
         showForecastDates();
-        showTodaysDate();
     });
 }
 
@@ -109,7 +117,7 @@ function showForecastDates() {
 }
 
 function init() {
-   
+   showTodaysDate();
 }
 
 init();
