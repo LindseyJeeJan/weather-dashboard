@@ -26,7 +26,7 @@
         <aside>
           <label for="search">Search for a city</label>
           <div class="input-group mb-3">
-            <input id="search" type="search" class="form-control" placeholder="City Name" aria-label="Search for a city" name="search">
+            <input id="search" type="search" autocomplete="off" class="form-control" placeholder="City Name" aria-label="Search for a city" name="search">
             <div class="input-group-append">
               <button id="btn-search" class="btn btn-primary" type="button" aria-label="search">
                 <i aria-hidden="true" class="fas fa-search"></i>
@@ -43,25 +43,26 @@
             <span class="bold">Error:</span>
             City not found. Enter a new city name.
           </div>
+          <div id="history-header"></div>
           <h5>Search History</h5>
-          <ul id="city-list" class="list-group city-list"></ul>
+          <ul id="city-list" class="list-group city-list">
+          </ul>
         </aside>
       </div>
 
       <div class="col-xs-12 col-sm-7 col-md-8 p-4">
         <section>
-          <div class="weather-container bg-light">
+          <div class="weather-container">
             <h2 class="mb-4">
-              <span id="cityName">Select a city</span>
-              (<span id="todaysDate"></span>)
+              <span id="cityName"></span>
+              <span id="todaysDate"></span>
               <span class="cp-2">
                 <img aria-hidden="true" id="h2-card-image" class="card-image" />
               </span>
             </h2>
-            <p>Temperature: <span id="temperature"></span>&deg; F</p>
-            <p>Humidity: <span id="humidity"></span>%</p>
-            <p>Wind Speed: <span id="wind-speed"></span> mph</p>
-            <p>UV Index: <span id="uv-index">
+            <p><span id="temperature"></span></p>
+            <p><span id="humidity"></span></p>
+            <p><span id="uv-index">
                 <span class="badge p-2"></span>
               </span>
             </p>
@@ -69,82 +70,82 @@
         </section>
         <section>
           <div class="forecast mt-4">
-            <h2 class="mb-4">5-Day Forecast</h2>
+            <h2 class="mb-4"></h2>
             <div class="card-container row">
 
               <!-- Card 1 -->
-              <div class="card bg-primary">
+              <div class="card">
                 <div class="card-body text-white p-2">
                   <h5 class="card-title"></h5>
                   <div class="card-image p-2">
                     <img aria-hidden="true" class="card-image" />
                   </div>
-                  <h6 class="card-subtitle my-3">Temp:
-                    <span class="temperature"></span>&deg;F
+                  <h6 class="card-subtitle my-3">
+                    <span class="temperature"></span>
                   </h6>
-                  <h6 class="card-subtitle mt-2">Humidity:
-                    <span class="humidity"></span>%
+                  <h6 class="card-subtitle mt-2">
+                    <span class="humidity"></span>
                   </h6>
                 </div>
               </div>
               <!-- Card 2 -->
-              <div class="card bg-primary">
+              <div class="card">
                 <div class="card-body text-white p-2">
                   <h5 class="card-title"></h5>
                   <div class="card-image p-2">
                     <img aria-hidden="true" class="card-image" />
                   </div>
-                  <h6 class="card-subtitle my-3">Temp:
-                    <span class="temperature"></span>&deg;F
+                  <h6 class="card-subtitle my-3">
+                    <span class="temperature"></span>
                   </h6>
-                  <h6 class="card-subtitle mt-2">Humidity:
-                    <span class="humidity"></span>%
+                  <h6 class="card-subtitle mt-2">
+                    <span class="humidity"></span>
                   </h6>
                 </div>
               </div>
               <!-- Card 3 -->
-              <div class="card bg-primary">
+              <div class="card">
                 <div class="card-body text-white p-2">
                   <h5 class="card-title"></h5>
                   <div class="card-image p-2">
                     <img aria-hidden="true" class="card-image" />
                   </div>
-                  <h6 class="card-subtitle my-3">Temp:
-                    <span class="temperature"></span>&deg;F
+                  <h6 class="card-subtitle my-3">
+                    <span class="temperature"></span>
                   </h6>
-                  <h6 class="card-subtitle mt-2">Humidity:
-                    <span class="humidity"></span>%
+                  <h6 class="card-subtitle mt-2">
+                    <span class="humidity"></span>
                   </h6>
                 </div>
               </div>
               <!-- Card 4 -->
-              <div class="card bg-primary">
+              <div class="card">
                 <div class="card-body text-white p-2">
                   <h5 class="card-title"></h5>
                   <div class="card-image p-2">
                     <img aria-hidden="true" class="card-image" />
                   </div>
-                  <h6 class="card-subtitle my-3">Temp:
-                    <span class="temperature"></span>&deg;F
+                  <h6 class="card-subtitle my-3">
+                    <span class="temperature"></span>
                   </h6>
-                  <h6 class="card-subtitle mt-2">Humidity:
-                    <span class="humidity"></span>%
+                  <h6 class="card-subtitle mt-2">
+                    <span class="humidity"></span>
                   </h6>
                 </div>
               </div>
 
               <!-- Card 5 -->
-              <div class="card bg-primary">
+              <div class="card">
                 <div class="card-body text-white p-2">
                   <h5 class="card-title"></h5>
                   <div class="card-image p-2">
                     <img aria-hidden="true" class="card-image" />
                   </div>
-                  <h6 class="card-subtitle my-3">Temp:
-                    <span class="temperature"></span>&deg;F
+                  <h6 class="card-subtitle my-3">
+                    <span class="temperature"></span>
                   </h6>
-                  <h6 class="card-subtitle mt-2">Humidity:
-                    <span class="humidity"></span>%
+                  <h6 class="card-subtitle mt-2">
+                    <span class="humidity"></span>
                   </h6>
                 </div>
               </div>

@@ -10,7 +10,9 @@ var uvIndex = $('#uv-index .badge');
 var weatherIcon = $('#h2-card-image');
 var errorMessage = $('#error');
 var errorCitySearch = $('#error-city');
+var historyHeaderContainer = $('#history-header');
 
+var searches = [];
 var latLong = [];
 var btnClicked = false;
 
@@ -31,15 +33,24 @@ btnSearch.on('click', function(event) {
 
 // Click event to capture user clicking on a city
 cityList.on('click', 'li', function(event) {
-     // change background of selected city 
+    //  Get city name only for search
     var listLocation = $(this).find('.localCityName').text();
-    console.log(listLocation);
+    
+    // change background of selected city only
     $('li').removeClass('bg-primary');
     $(this).addClass('bg-primary');
     // function to retrieve the longitude and latitude of the city clicked
     convertToLongLat(listLocation);
     btnClicked = false;
 });
+
+function renderSearchHistory () {
+    // Print search history to the page
+    var historyHeader = $('<h5>');
+    historyHeader.text('Search History');
+    historyHeaderContainer.apppend(historyHeader);historyHeaderContainer
+
+}
 
 function resetErrorMessages() {
     errorMessage.hide();
@@ -79,6 +90,7 @@ function convertToLongLat(city){
                 } else {
                     newListItemOther.text(', ' + data[0].country);
                 }
+                // display the city name and state or country in search history
                 newListItem.append(newListItemCity).append(newListItemOther);
                 cityList.append(newListItem);
                 
@@ -114,8 +126,10 @@ function getApi(locationCoordinates) {
     .then(function (data) {
         // Write information to the main weather card with data from API
         console.log(data);
-        humidity.text(data.current.humidity);
-        windSpeed.text(data.current.wind_speed);
+        
+        humidity.text('Humidity: ' + data.current.humidity + '%');
+        windSpeed.text('Wind Speed: ' + data.current.wind_speed + 'mph');
+        $('#uv-index').text('UV Index: ');
         uvIndex.text(data.current.uvi);
 
         var icon = data.current.weather[0].icon;
@@ -138,7 +152,7 @@ function getApi(locationCoordinates) {
         // Display temperature with one decimal point
         var temp = data.current.temp;
         temp = parseFloat(temp).toFixed(1);
-        temperature.text(temp);
+        temperature.text('Temperature: ' + temp + 'ºF');
 
         // Store the array of forecasts
         var forecasts = data.daily;
@@ -153,16 +167,18 @@ function getApi(locationCoordinates) {
             var forecastIconLocation = ("http://openweathermap.org/img/wn/" + forecastIcon +"@2x.png");
             
             // write the forecast data to the page
+            $('.forecast h2.mb-4').text('5-Day Forecast');
+            $('.card').addClass('bg-primary');
             var forecastContainer = $('.card')[counter];
-            $(forecastContainer).find('.temperature').text(forecastTemp);
-            $(forecastContainer).find('.humidity').text(forecastHumidity);
-            $(forecastContainer).find('.humidity').text(forecastHumidity);
+            $(forecastContainer).find('.temperature').text('Temp: ' + forecastTemp + 'ºF');
+            $(forecastContainer).find('.humidity').text('Humidity: ' + forecastHumidity + '%');
             $(forecastContainer).find('img.card-image').attr('src', forecastIconLocation);
 
             // increment counter for looping
             counter++;
         }
         // display these values from moment
+        showTodaysDate();
         showForecastDates();
     });
 }
@@ -170,7 +186,7 @@ function getApi(locationCoordinates) {
 // display the date in the main weather card
 function showTodaysDate(){
     var dateDisplay = moment().format('MM/DD/YYYY');
-    todaysDate.text(dateDisplay);
+    todaysDate.text('(' + dateDisplay + ')');
 }
 
 // display the 5-day forecast dates 
@@ -185,7 +201,7 @@ function showForecastDates() {
 }
 
 function init() {
-   showTodaysDate();
+ //  renderSearchHistory();
 }
 
 init();
