@@ -43,12 +43,17 @@
             <span class="bold">Error:</span>
             City not found. Enter a new city name.
           </div>
+          <div id="error-comma" style="display: none;" class="alert alert-danger">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span class="bold">Error:</span>
+            Try searching city name only. Do not include the state.
+          </div>
           <div id="history-header">
             <h5>Search History</h5>
             <a style="display: none;" href class="clear-history">clear</a>
           </div>
           <ul id="city-list" class="list-group city-list">
-            <li class="empty-list">No search history exists.</li>
+            <li class="empty-list">No history exists.</li>
           </ul>
         </aside>
       </div>

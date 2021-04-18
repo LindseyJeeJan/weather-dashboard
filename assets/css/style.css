@@ -103,6 +103,11 @@ h2 {
   color: var(--dark);
 }
 
+.city-list .list-group-item:nth-child(2){
+    border-top-right-radius: .25rem;
+    border-top-left-radius: .25rem;
+}
+
 .bold {
   font-weight: bold;
 }

@@ -10,6 +10,7 @@ var uvIndex = $('.badge');
 var weatherIcon = $('#h2-card-image');
 var errorMessage = $('#error');
 var errorCitySearch = $('#error-city');
+var errorCommaIncluded = $('#error-comma');
 var historyHeaderContainer = $('#history-header');
 var emptyListMessage = $('.empty-list');
 var clearHistoryLink = $('.clear-history');
@@ -25,6 +26,11 @@ btnSearch.on('click', function(event) {
     if (searchLocation === ""){
         // return if search empty
         errorMessage.show();
+        return;
+    } 
+    if  (searchLocation.indexOf(',') > -1){ 
+         // return if search includes state
+        errorCommaIncluded.show();
         return;
     }
     $('li').removeClass('bg-warning');
@@ -80,6 +86,7 @@ function renderSearchHistory () {
         newListItem.append(newListItemCity).append(newListItemOther);
         cityList.append(newListItem);
     }   
+     // If this is a new item added to the list and currently displaying, highlight it as selected yellow color
     if (btnClicked == true){
         cityList.find('li:last-child').addClass('bg-warning');
     }
@@ -88,6 +95,7 @@ function renderSearchHistory () {
 function resetErrorMessages() {
     errorMessage.hide();
     errorCitySearch.hide();
+    errorCommaIncluded.hide();
 }
 
 // Convert the city name to long and lat for the Open API
@@ -96,7 +104,6 @@ function convertToLongLat(city){
     city + '&limit=5&appid=ce4222a2bf38275175e19449b4ee48a5';
     fetch(requestUrl)
         .then(function (response) {
-            console.log('status', response.status);
             // If city information is not found, display error
             if (response.status === 404)  {
                 errorCitySearch.show();
@@ -115,8 +122,6 @@ function convertToLongLat(city){
                 var cityStateCountry = (data[0].local_names.feature_name + ', ' + data[0].country);
             }
             // Display location city, state (if US) and country
-            //console.log(cityName);
-            //console.log(cityStateCountry);
             cityNameDisplay.text(cityStateCountry);
 
             // Add city to search history only if new city is searched 
@@ -129,7 +134,7 @@ function convertToLongLat(city){
                 } else {
                     otherName = data[0].country;
                 }
-               
+               //  push search to searches array
                 searches.push({
                     city: cityName,
                     other: otherName
@@ -138,7 +143,6 @@ function convertToLongLat(city){
                 localStorage.setItem('searches', JSON.stringify(searches));
                 renderSearchHistory(); 
             }
-            
             // store longitude and latitude in array, but empty it first
             latLong[0] = data[0].lat;
             latLong[1] = data[0].lon;
@@ -155,18 +159,17 @@ function getApi(locationCoordinates) {
   fetch(requestUrl)
     .then(function (response) {
         if (response.status === 404) {
-            // If city information is not found, instruct the user to enter a new
+            // If city information is not found display error message
             errorCitySearch.show();
         }
         if (response.status === 200) {
+            // If city information is found hide error message
             resetErrorMessages();
         }
       return response.json();
     })
     .then(function (data) {
-        // Write information to the main weather card with data from API
-        console.log(data);
-        
+        // Write information to the main weather card with data from API  
         humidity.text('Humidity: ' + data.current.humidity + '%');
         windSpeed.text('Wind Speed: ' + data.current.wind_speed + 'mph');
         $('#uv-index').text('UV Index: ');
