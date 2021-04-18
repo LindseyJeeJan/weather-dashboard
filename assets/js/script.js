@@ -25,7 +25,7 @@ btnSearch.on('click', function(event) {
         errorMessage.show();
         return;
     }
-    $('li').removeClass('bg-primary');
+    $('li').removeClass('bg-warning');
     // function to retrieve the longitude and latitude of the city searched
     convertToLongLat(searchLocation);
     btnClicked = true;
@@ -37,8 +37,8 @@ cityList.on('click', 'li', function(event) {
     var listLocation = $(this).find('.localCityName').text();
     
     // change background of selected city only
-    $('li').removeClass('bg-primary');
-    $(this).addClass('bg-primary');
+    $('li').removeClass('bg-warning');
+    $(this).addClass('bg-warning');
     // function to retrieve the longitude and latitude of the city clicked
     convertToLongLat(listLocation);
     btnClicked = false;
@@ -74,15 +74,15 @@ function convertToLongLat(city){
         .then(function (data) {
             console.log(data);
             if ((data[0].country) == "US") {
-                var cityStateCountry = (data[0].local_names.en + ', ' + data[0].state);
+                var cityStateCountry = (data[0].local_names.feature_name + ', ' + data[0].state);
             } else {
-                var cityStateCountry = (data[0].local_names.en + ', ' + data[0].country);
+                var cityStateCountry = (data[0].local_names.feature_name + ', ' + data[0].country);
             }
             // Add city to search history when new city is searched 
             if (btnClicked === true){
-                var newListItem = $('<li class="list-group-item bg-primary">');  
+                var newListItem = $('<li class="list-group-item bg-warning">');  
                 var newListItemCity = $('<span class="localCityName">');   
-                newListItemCity.text(data[0].local_names.en);
+                newListItemCity.text(data[0].local_names.feature_name);
                 var newListItemOther = $('<span>');  
                 // get specific location information
                 if ((data[0].country) == "US") {
