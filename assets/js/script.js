@@ -65,7 +65,6 @@ function convertToLongLat(city){
         .then(function (response) {
             // If city information is not found, display error
             if (response.status === 404) {
-                console.log('404');
                 errorCitySearch.show();
                 return;
             } 
@@ -113,7 +112,6 @@ function getApi(locationCoordinates) {
     var requestUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latitudeVal + '&lon=' + longitudeVal + '&exclude=minutely,hourly,alerts&units=imperial&appid=ce4222a2bf38275175e19449b4ee48a5';
   fetch(requestUrl)
     .then(function (response) {
-        console.log(response.status);
         if (response.status === 404) {
             // If city information is not found, instruct the user to enter a new
             errorCitySearch.show();
