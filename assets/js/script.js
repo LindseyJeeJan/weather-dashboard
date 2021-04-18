@@ -6,7 +6,7 @@ var todaysDate = $('#todaysDate');
 var temperature = $('#temperature');
 var humidity = $('#humidity');
 var windSpeed = $('#wind-speed');
-var uvIndex = $('#uv-index .badge');
+var uvIndex = $('.badge');
 var weatherIcon = $('#h2-card-image');
 var errorMessage = $('#error');
 var errorCitySearch = $('#error-city');
@@ -185,16 +185,16 @@ function getApi(locationCoordinates) {
 
 // display the date in the main weather card
 function showTodaysDate(){
-    var dateDisplay = moment().format('MM/DD/YYYY');
-    todaysDate.text('(' + dateDisplay + ')');
+    var dateDisplay = moment().format('dddd MM/DD/YYYY');
+    todaysDate.text(dateDisplay);
 }
 
 // display the 5-day forecast dates 
 function showForecastDates() {
     var number = 1;
     $('h5.card-title').each(function(){
-        var date = moment().format('MM/DD/YYYY');
-        date = moment(date, 'MM/DD/YYYY').add(number, 'days').format('MM/DD/YYYY');
+        var date = moment().format('dddd');
+        date = moment(date, 'dddd').add(number, 'days').format('dddd');
         $(this).text(date);
         number = number + 1;
     })

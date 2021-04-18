@@ -52,8 +52,10 @@ h2 {
 }
 
 .card-title {
-  font-size: 1.25rem;
-  white-space: nowrap;
+    font-size: 1.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card-image {
