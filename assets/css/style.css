@@ -20,7 +20,34 @@ h1 {
 h2 {
   font-size: 1.7rem;
 }
+/* ID styles */
+#history-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+#history-header h5 {
+  margin-left: 5px;
+}
+
 /* Class styles */
+.clear-history, .clear-history:hover, .clear-history:focus, .clear-history:visited{
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.clear-history:hover{
+  color: #0056b3;
+}
+
+.empty-list{
+  padding-left: 5px;
+  font-size: .95rem;
+  color: #666;
+}
+
 .weather-container {
     border-radius: .25rem;
     background-color: #fff;
@@ -68,15 +95,12 @@ h2 {
 }
 
 .city-list .list-group-item:hover {
-  background-color: lightgrey;
+  background-color:#f8df95;
 }
 
 .city-list .list-group-item:active {
-  background-color: #007bff;
-}
-
-.city-list .list-group-item:active, .list-group-item.bg-primary {
-  color: var(--light);
+  background-color :#ffc107;
+  color: var(--dark);
 }
 
 .bold {

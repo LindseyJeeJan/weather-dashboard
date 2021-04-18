@@ -1,7 +1,7 @@
 var btnSearch = $('#btn-search');
 var searchInput = $('#search');
 var cityList = $('#city-list');
-var cityName = $('#cityName');
+var cityNameDisplay = $('#cityName');
 var todaysDate = $('#todaysDate');
 var temperature = $('#temperature');
 var humidity = $('#humidity');
@@ -11,7 +11,8 @@ var weatherIcon = $('#h2-card-image');
 var errorMessage = $('#error');
 var errorCitySearch = $('#error-city');
 var historyHeaderContainer = $('#history-header');
-
+var emptyListMessage = $('.empty-list');
+var clearHistoryLink = $('.clear-history');
 var searches = [];
 var latLong = [];
 var btnClicked = false;
@@ -19,6 +20,7 @@ var btnClicked = false;
 // Click event to capture when user clicks search
 btnSearch.on('click', function(event) {
     event.preventDefault();
+    resetErrorMessages();
     var searchLocation = searchInput.val().trim();
     if (searchLocation === ""){
         // return if search empty
@@ -32,7 +34,7 @@ btnSearch.on('click', function(event) {
 });
 
 // Click event to capture user clicking on a city
-cityList.on('click', 'li', function(event) {
+cityList.on('click', 'li:not(.empty-list)', function(event) {
     //  Get city name only for search
     var listLocation = $(this).find('.localCityName').text();
     
@@ -44,33 +46,43 @@ cityList.on('click', 'li', function(event) {
     btnClicked = false;
 });
 
+historyHeaderContainer.on('click', '.clear-history', function(event){
+    localStorage.clear();
+    renderSearchHistory();
+});
+
 function renderSearchHistory () {
-    // First clear the panel
-    cityList.innerHTML = "";
-    // Print search history to the page
-    var historyHeader = $('<h5>');
-     // First clear the panel
-    historyHeader.text('');
-    historyHeader.text('Search History');
-    historyHeaderContainer.append(historyHeader);
+    // First clear the list
+    cityList.find('li:not(.empty-list)').remove();
+
+    // If there is no list, show the "No search history" message. If there is a list, show the clear link.
+    if (searches.length === 0){
+        emptyListMessage.show();
+        clearHistoryLink.hide();
+    } else {
+        emptyListMessage.hide();
+        clearHistoryLink.show();
+    }
+
     // Get search phrases from the array of objects and print them onto the page
-      for (var i = 0; i < searches.length; i++) {
-           var search = searches[i];
+    for (var i = 0; i < searches.length; i++) {
+        var search = searches[i];
+        // create display elements
+        var newListItem = $('<li class="list-group-item">');  
+        var newListItemCity = $('<span class="localCityName">');   
+        var newListItemOther = $('<span>'); 
+        
+        // get the values from the object in the array
+        newListItemCity.text(search.city);
+        newListItemOther.text(', ' + search.other);
 
-            // create display elements
-            var newListItem = $('<li class="list-group-item">');  
-            var newListItemCity = $('<span class="localCityName">');   
-            var newListItemOther = $('<span>'); 
-            
-            // get the values from the object in the array
-            newListItemCity.text(search.city);
-            newListItemOther.text(', ' + search.other);
-
-            // display the city name and state or country in search history
-            newListItem.append(newListItemCity).append(newListItemOther);
-            cityList.append(newListItem);
-      }
-   
+        // display the city name and state or country in search history
+        newListItem.append(newListItemCity).append(newListItemOther);
+        cityList.append(newListItem);
+    }   
+    if (btnClicked == true){
+        cityList.find('li:last-child').addClass('bg-warning');
+    }
 }
 
 function resetErrorMessages() {
@@ -84,33 +96,38 @@ function convertToLongLat(city){
     city + '&limit=5&appid=ce4222a2bf38275175e19449b4ee48a5';
     fetch(requestUrl)
         .then(function (response) {
+            console.log('status', response.status);
             // If city information is not found, display error
-            if (response.status === 404) {
+            if (response.status === 404)  {
                 errorCitySearch.show();
                 return;
             } 
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
-
+            if (data.length == 0)  {
+                errorCitySearch.show();
+                return;
+            } 
             if ((data[0].country) == "US") {
                 var cityStateCountry = (data[0].local_names.feature_name + ', ' + data[0].state);
             } else {
                 var cityStateCountry = (data[0].local_names.feature_name + ', ' + data[0].country);
             }
             // Display location city, state (if US) and country
-            cityName.text(cityStateCountry);
+            //console.log(cityName);
+            //console.log(cityStateCountry);
+            cityNameDisplay.text(cityStateCountry);
 
             // Add city to search history only if new city is searched 
             if (btnClicked === true){
                 // get specific location information
-                cityName = data[0].local_names.feature_name;
+                cityName = (data[0].local_names.feature_name);
                 var otherName;
                 if ((data[0].country) == "US") {
                     otherName = data[0].state;
                 } else {
-                    otherName =  data[0].country;
+                    otherName = data[0].country;
                 }
                
                 searches.push({
@@ -238,6 +255,7 @@ function init() {
         searches = storedSearchHistory;
     }
     // render search history to the page
+    btnClicked = false;
     renderSearchHistory();
 }
 
