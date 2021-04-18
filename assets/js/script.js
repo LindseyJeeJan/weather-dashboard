@@ -45,11 +45,32 @@ cityList.on('click', 'li', function(event) {
 });
 
 function renderSearchHistory () {
+    // First clear the panel
+    cityList.innerHTML = "";
     // Print search history to the page
     var historyHeader = $('<h5>');
+     // First clear the panel
+    historyHeader.text('');
     historyHeader.text('Search History');
-    historyHeaderContainer.apppend(historyHeader);historyHeaderContainer
+    historyHeaderContainer.append(historyHeader);
+    // Get search phrases from the array of objects and print them onto the page
+      for (var i = 0; i < searches.length; i++) {
+           var search = searches[i];
 
+            // create display elements
+            var newListItem = $('<li class="list-group-item">');  
+            var newListItemCity = $('<span class="localCityName">');   
+            var newListItemOther = $('<span>'); 
+            
+            // get the values from the object in the array
+            newListItemCity.text(search.city);
+            newListItemOther.text(', ' + search.other);
+
+            // display the city name and state or country in search history
+            newListItem.append(newListItemCity).append(newListItemOther);
+            cityList.append(newListItem);
+      }
+   
 }
 
 function resetErrorMessages() {
@@ -72,31 +93,35 @@ function convertToLongLat(city){
         })
         .then(function (data) {
             console.log(data);
+
             if ((data[0].country) == "US") {
                 var cityStateCountry = (data[0].local_names.feature_name + ', ' + data[0].state);
             } else {
                 var cityStateCountry = (data[0].local_names.feature_name + ', ' + data[0].country);
             }
-            // Add city to search history when new city is searched 
-            if (btnClicked === true){
-                var newListItem = $('<li class="list-group-item bg-warning">');  
-                var newListItemCity = $('<span class="localCityName">');   
-                newListItemCity.text(data[0].local_names.feature_name);
-                var newListItemOther = $('<span>');  
-                // get specific location information
-                if ((data[0].country) == "US") {
-                    newListItemOther.text(', ' + data[0].state);
-                } else {
-                    newListItemOther.text(', ' + data[0].country);
-                }
-                // display the city name and state or country in search history
-                newListItem.append(newListItemCity).append(newListItemOther);
-                cityList.append(newListItem);
-                
-            }
-            
             // Display location city, state (if US) and country
             cityName.text(cityStateCountry);
+
+            // Add city to search history only if new city is searched 
+            if (btnClicked === true){
+                // get specific location information
+                cityName = data[0].local_names.feature_name;
+                var otherName;
+                if ((data[0].country) == "US") {
+                    otherName = data[0].state;
+                } else {
+                    otherName =  data[0].country;
+                }
+               
+                searches.push({
+                    city: cityName,
+                    other: otherName
+                });
+                //  push to local storage
+                localStorage.setItem('searches', JSON.stringify(searches));
+                renderSearchHistory(); 
+            }
+            
             // store longitude and latitude in array, but empty it first
             latLong[0] = data[0].lat;
             latLong[1] = data[0].lon;
@@ -136,16 +161,7 @@ function getApi(locationCoordinates) {
         
        // Get the UV index and display the appropriate badge color according to the conditions
         var uvindex = data.current.uvi;
-        if (uvindex <= 2){
-             // Less than or equal to 2 is favorable, green
-            uvIndex.addClass('badge-success');
-        } else if (uvindex <= 7) {
-            // Between 3-7 is moderate, yellow
-            uvIndex.addClass('badge-warning');
-        } else {
-             // Over 8 is severe, red
-            uvIndex.addClass('badge-danger');
-        }
+        renderUvIndexColor(uvindex);
 
         // Display temperature with one decimal point
         var temp = data.current.temp;
@@ -181,6 +197,22 @@ function getApi(locationCoordinates) {
     });
 }
 
+// color code the uv index
+function renderUvIndexColor(uvindex) {
+        uvIndex.removeClass('badge-success badge-warning badge-danger');
+
+        if (uvindex <= 2){
+             // Less than or equal to 2 is favorable, green
+            uvIndex.addClass('badge-success');
+        } else if (uvindex <= 7) {
+            // Between 3-7 is moderate, yellow
+            uvIndex.addClass('badge-warning');
+        } else {
+             // Over 8 is severe, red
+            uvIndex.addClass('badge-danger');
+        }
+}
+
 // display the date in the main weather card
 function showTodaysDate(){
     var dateDisplay = moment().format('dddd MM/DD/YYYY');
@@ -199,7 +231,14 @@ function showForecastDates() {
 }
 
 function init() {
- //  renderSearchHistory();
+    // Get search history from localStorage
+    var storedSearchHistory = JSON.parse(localStorage.getItem('searches'));
+    // If search history exist in localStorage, update the searches array
+    if (storedSearchHistory !== null) {
+        searches = storedSearchHistory;
+    }
+    // render search history to the page
+    renderSearchHistory();
 }
 
 init();
