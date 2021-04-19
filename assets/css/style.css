@@ -20,6 +20,14 @@ h1 {
 h2 {
   font-size: 1.7rem;
 }
+
+.forecast h2 {
+  border-top: 1px solid #ccc;
+}
+
+.forecast h2:empty {
+  border-top: none;
+}
 /* ID styles */
 #history-header{
     display: flex;
@@ -32,6 +40,10 @@ h2 {
 }
 
 /* Class styles */
+.bg-custom{
+  background-color: #f8d3d4;
+}
+
 .clear-history, .clear-history:hover, .clear-history:focus, .clear-history:visited{
   color: #007bff;
   text-decoration: underline;
@@ -50,12 +62,11 @@ h2 {
 
 .weather-container {
     border-radius: .25rem;
-    background-color: #fff;
 }
 
 .weather-container, .forecast {
     display: block;
-    padding: .75rem 1.25rem;
+    padding: .05rem 1.25rem;
 }
 
 .weather-container p {
@@ -76,6 +87,7 @@ h2 {
   flex: 0 0 calc(20% - 10px);
   margin: 5px;
   border: none;
+  background-color: transparent;
 }
 
 .card-title {
@@ -106,6 +118,18 @@ h2 {
 .city-list .list-group-item:nth-child(2){
     border-top-right-radius: .25rem;
     border-top-left-radius: .25rem;
+}
+
+.list-group-item .fas{
+  float: right;
+}
+
+.badge{
+  border: 1px solid transparent;
+}
+
+.badge-warning, .badge-danger, .badge-success{
+  border-color: var(--light);
 }
 
 .bold {

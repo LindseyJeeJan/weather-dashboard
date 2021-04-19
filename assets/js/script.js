@@ -14,6 +14,7 @@ var errorCommaIncluded = $('#error-comma');
 var historyHeaderContainer = $('#history-header');
 var emptyListMessage = $('.empty-list');
 var clearHistoryLink = $('.clear-history');
+var itemSelected = $('<i class="fas fa-check"></i>');
 var searches = [];
 var latLong = [];
 var btnClicked = false;
@@ -46,7 +47,7 @@ cityList.on('click', 'li:not(.empty-list)', function(event) {
     
     // change background of selected city only
     $('li').removeClass('bg-warning');
-    $(this).addClass('bg-warning');
+    $(this).addClass('bg-warning').append(itemSelected);
     // function to retrieve the longitude and latitude of the city clicked
     convertToLongLat(listLocation);
     btnClicked = false;
@@ -88,7 +89,7 @@ function renderSearchHistory () {
     }   
      // If this is a new item added to the list and currently displaying, highlight it as selected yellow color
     if (btnClicked == true){
-        cityList.find('li:last-child').addClass('bg-warning');
+        cityList.find('li:last-child').addClass('bg-warning').append(itemSelected);
     }
 }
 
