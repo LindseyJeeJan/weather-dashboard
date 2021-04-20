@@ -9,10 +9,6 @@ body {
   font-family: 'Quicksand', sans-serif;
 }
 
-h1, h2, h3, h4 {
-  font-weight: bold;
-}
-
 h1 {
   font-size: 2.3rem;
 }
@@ -21,13 +17,24 @@ h2 {
   font-size: 1.7rem;
 }
 
+header h1 {
+ background-color: #38ABD4;
+ border-bottom: 1px dotted #B0E1F2;
+}
+
+main {
+  background: linear-gradient(#38ABD4, #B0E1F2);
+  color: var(--light);
+}
+
 .forecast h2 {
-  border-top: 1px solid #ccc;
+  border-top: 1px dotted #B0E1F2;
 }
 
 .forecast h2:empty {
   border-top: none;
 }
+
 /* ID styles */
 #history-header{
     display: flex;
@@ -39,11 +46,20 @@ h2 {
   margin-left: 5px;
 }
 
-/* Class styles */
-.bg-custom{
-  background-color: #f8d3d4;
+#todaysDate {
+  color: #f0f0f0;
 }
 
+#cityName{
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+#temperature{
+  font-size: 3rem;
+}
+
+/* Class styles */
 .clear-history, .clear-history:hover, .clear-history:focus, .clear-history:visited{
   color: #007bff;
   text-decoration: underline;
@@ -67,10 +83,6 @@ h2 {
 .weather-container, .forecast {
     display: block;
     padding: .05rem 1.25rem;
-}
-
-.weather-container p {
-  margin-bottom: 1.4rem;
 }
 
 .weather-container .badge {
@@ -97,9 +109,18 @@ h2 {
     text-overflow: ellipsis;
 }
 
+.temperature {
+  font-size: 1.5rem;
+}
+
 .card-image {
   display: inline-block;
-  width: 45px;
+  width: 60px;
+  vertical-align: bottom;
+}
+
+.weather-container .card-image{
+  width: 60px;
 }
 
 .btn i, .city-list .list-group-item {

@@ -186,8 +186,8 @@ function getApi(locationCoordinates) {
 
         // Display temperature with one decimal point
         var temp = data.current.temp;
-        temp = parseFloat(temp).toFixed(1);
-        temperature.text('Temperature: ' + temp + 'ºF');
+        temp = parseFloat(temp).toFixed(0);
+        temperature.text(temp + 'ºF');
 
         // Store the array of forecasts
         var forecasts = data.daily;
@@ -196,16 +196,16 @@ function getApi(locationCoordinates) {
         for (var i = 0; i < 5; i++) {
             // store the forecast data 
             var forecastTemp = forecasts[i].temp.day;
-            forecastTemp = parseFloat(forecastTemp).toFixed(1);
+            forecastTemp = parseFloat(forecastTemp).toFixed(0);
             var forecastHumidity = forecasts[i].humidity;
             var forecastIcon = forecasts[i].weather[0].icon;
             var forecastIconLocation = ("http://openweathermap.org/img/wn/" + forecastIcon +"@2x.png");
             
             // write the forecast data to the page
             $('.forecast h2.mb-4').text('5-Day Forecast');
-            $('.card').addClass('bg-primary');
+            $('.card').addClass('bg-success');
             var forecastContainer = $('.card')[counter];
-            $(forecastContainer).find('.temperature').text('Temp: ' + forecastTemp + 'ºF');
+            $(forecastContainer).find('.temperature').text(forecastTemp + 'ºF');
             $(forecastContainer).find('.humidity').text('Humidity: ' + forecastHumidity + '%');
             $(forecastContainer).find('img.card-image').attr('src', forecastIconLocation);
 

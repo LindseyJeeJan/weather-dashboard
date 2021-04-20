@@ -16,15 +16,15 @@
 
 <body>
   <header>
-    <h1 class="bg-success text-white text-center p-3 m-0">Weather Dashboard</h1>
+    <h1 class="text-center p-3 m-0 text-white">Weather Dashboard</h1>
   </header>
   <main>
 
     <div class="row vh-100">
 
-      <div class="col-xs-12 col-sm-5 col-md-4 p-4 bg-light">
+      <div class="col-xs-12 col-sm-5 col-md-4 p-4 bg-light text-dark">
         <aside>
-          <label for="search">Search for a city</label>
+          <label for="search">Search for a city name </label>
           <div class="input-group mb-3">
             <input id="search" type="search" autocomplete="off" class="form-control" placeholder="City Name" aria-label="Search for a city" name="search">
             <div class="input-group-append">
@@ -49,7 +49,7 @@
             Try searching city name only. Do not include the state.
           </div>
           <div id="history-header">
-            <h5>Search History <small class="text-muted"><i class="far fa-clock"></i></small></h5>
+            <h5>Search History <small><i class="far fa-clock"></i></small></h5>
             <a style="display: none;" href class="clear-history">clear</a>
           </div>
           <ul id="city-list" class="list-group city-list">
@@ -61,18 +61,25 @@
       <div class="col-xs-12 col-sm-7 col-md-8 p-4 bg-custom">
         <section>
           <div class="weather-container">
-            <h2 class="mb-4">
+            <h2 class="mb-1">
               <div id="todaysDate"></div>
-              <span id="cityName" class="font-weight-normal"></span>
-              <span class="cp-2">
-                <img aria-hidden="true" id="h2-card-image" class="card-image" />
-              </span>
+              <span id="cityName"></span>
             </h2>
-            <p><span id="temperature"></span></p>
-            <p><span id="humidity"></span></p>
-            <p><span id="uv-index"></span>
-              <span class="badge p-2"></span>
-            </p>
+            <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                <p><span id="temperature"></span>
+                  <span class="cp-2">
+                    <img aria-hidden="true" id="h2-card-image" class="card-image" />
+                  </span>
+                </p>
+              </div>
+              <div class="col-xs-12 col-sm-6">
+                <p><span id="humidity"></span></p>
+                <p><span id="uv-index"></span>
+                  <span class="badge p-2"></span>
+                </p>
+              </div>
+            </div>
           </div>
         </section>
         <section>
@@ -84,12 +91,12 @@
               <div class="card">
                 <div class="card-body text-white p-2">
                   <h5 class="card-title bold"></h5>
-                  <div class="card-image p-2">
-                    <img aria-hidden="true" class="card-image" />
-                  </div>
-                  <h6 class="card-subtitle my-3">
+                  <h6 class="card-subtitle mt-3">
                     <span class="temperature"></span>
                   </h6>
+                  <div class="card-image">
+                    <img aria-hidden="true" class="card-image" />
+                  </div>
                   <h6 class="card-subtitle mt-2">
                     <span class="humidity"></span>
                   </h6>
@@ -99,12 +106,12 @@
               <div class="card">
                 <div class="card-body text-white p-2">
                   <h5 class="card-title bold"></h5>
-                  <div class="card-image p-2">
-                    <img aria-hidden="true" class="card-image" />
-                  </div>
-                  <h6 class="card-subtitle my-3">
+                  <h6 class="card-subtitle mt-3">
                     <span class="temperature"></span>
                   </h6>
+                  <div class="card-image">
+                    <img aria-hidden="true" class="card-image" />
+                  </div>
                   <h6 class="card-subtitle mt-2">
                     <span class="humidity"></span>
                   </h6>
@@ -114,12 +121,12 @@
               <div class="card">
                 <div class="card-body text-white p-2">
                   <h5 class="card-title bold"></h5>
-                  <div class="card-image p-2">
-                    <img aria-hidden="true" class="card-image" />
-                  </div>
-                  <h6 class="card-subtitle my-3">
+                  <h6 class="card-subtitle mt-3">
                     <span class="temperature"></span>
                   </h6>
+                  <div class="card-image">
+                    <img aria-hidden="true" class="card-image" />
+                  </div>
                   <h6 class="card-subtitle mt-2">
                     <span class="humidity"></span>
                   </h6>
@@ -129,12 +136,13 @@
               <div class="card">
                 <div class="card-body text-white p-2">
                   <h5 class="card-title bold"></h5>
-                  <div class="card-image p-2">
-                    <img aria-hidden="true" class="card-image" />
-                  </div>
-                  <h6 class="card-subtitle my-3">
+
+                  <h6 class="card-subtitle mt-3">
                     <span class="temperature"></span>
                   </h6>
+                  <div class="card-image">
+                    <img aria-hidden="true" class="card-image" />
+                  </div>
                   <h6 class="card-subtitle mt-2">
                     <span class="humidity"></span>
                   </h6>
@@ -145,12 +153,12 @@
               <div class="card">
                 <div class="card-body text-white p-2">
                   <h5 class="card-title bold"></h5>
-                  <div class="card-image p-2">
-                    <img aria-hidden="true" class="card-image" />
-                  </div>
-                  <h6 class="card-subtitle my-3">
+                  <h6 class="card-subtitle mt-3">
                     <span class="temperature"></span>
                   </h6>
+                  <div class="card-image">
+                    <img aria-hidden="true" class="card-image" />
+                  </div>
                   <h6 class="card-subtitle mt-2">
                     <span class="humidity"></span>
                   </h6>
