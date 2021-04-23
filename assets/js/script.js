@@ -177,7 +177,7 @@ function getApi(locationCoordinates) {
         uvIndex.text(data.current.uvi);
 
         var icon = data.current.weather[0].icon;
-        var iconLocation = ("http://openweathermap.org/img/wn/" + icon +"@2x.png");
+        var iconLocation = ("https://openweathermap.org/img/wn/" + icon +"@2x.png");
         weatherIcon.attr('src', iconLocation);
         
        // Get the UV index and display the appropriate badge color according to the conditions
@@ -199,7 +199,7 @@ function getApi(locationCoordinates) {
             forecastTemp = parseFloat(forecastTemp).toFixed(0);
             var forecastHumidity = forecasts[i].humidity;
             var forecastIcon = forecasts[i].weather[0].icon;
-            var forecastIconLocation = ("http://openweathermap.org/img/wn/" + forecastIcon +"@2x.png");
+            var forecastIconLocation = ("https://openweathermap.org/img/wn/" + forecastIcon +"@2x.png");
             
             // write the forecast data to the page
             $('.forecast h2.mb-4').text('5-Day Forecast');
