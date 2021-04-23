@@ -101,7 +101,7 @@ function resetErrorMessages() {
 
 // Convert the city name to long and lat for the Open API
 function convertToLongLat(city){
-    var requestUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' +
+    var requestUrl = 'https://api.openweathermap.org/geo/1.0/direct?q=' +
     city + '&limit=5&appid=ce4222a2bf38275175e19449b4ee48a5';
     fetch(requestUrl)
         .then(function (response) {

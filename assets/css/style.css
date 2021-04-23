@@ -60,6 +60,10 @@ main {
 }
 
 /* Class styles */
+.bg-search{
+  background-color: #b1eaff;
+}
+
 .clear-history, .clear-history:hover, .clear-history:focus, .clear-history:visited{
   color: #007bff;
   text-decoration: underline;
