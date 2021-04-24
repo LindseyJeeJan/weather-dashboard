@@ -7,6 +7,8 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-family: 'Quicksand', sans-serif;
+  background: linear-gradient(180deg, #38ABD4 0%, #8ce0fd 80%) no-repeat center center fixed;
+  background-size: cover;
 }
 
 h1 {
@@ -23,7 +25,6 @@ header h1 {
 }
 
 main {
-  background: linear-gradient(#38ABD4, #B0E1F2);
   color: var(--light);
 }
 
