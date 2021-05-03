@@ -1,5 +1,5 @@
 # weather-dashboard
-This single page application uses the OpenWeather API to retrieve weather data. Users may type in a city name in the Search field and click on the Search button. The city weather information is retrieved along with a 5 day forecast. Any time a city is searched for, it is saved in a list below the search. The allows the user to click on a recently searched city to reload the data. Uses JavaScript, Bootstrap, JSON and OpenWeather API.
+Description: This single page application uses the OpenWeather API to retrieve weather data. Users may type in a city name in the Search field and click on the Search button. The city weather information is retrieved along with a 5 day forecast. Any time a city is searched for, it is saved in a list below the search. The allows the user to click on a recently searched city to reload the data. Uses JavaScript, Bootstrap, JSON and OpenWeather API.
 
 Link to deployed application:
 https://lindseyjeejan.github.io/weather-dashboard/
