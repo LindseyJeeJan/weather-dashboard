@@ -118,28 +118,33 @@ function convertToLongLat(city){
                 return;
             } 
             if ((data[0].country) == "US") {
-                var cityStateCountry = (data[0].local_names.feature_name + ', ' + data[0].state);
+                var cityStateCountry = (data[0].name + ', ' + data[0].state);
             } else {
-                var cityStateCountry = (data[0].local_names.feature_name + ', ' + data[0].country);
+                var cityStateCountry = (data[0].name + ', ' + data[0].country);
             }
             // Display location city, state (if US) and country
             cityNameDisplay.text(cityStateCountry);
 
-            // Add city to search history only if new city is searched 
+            // Add city to search history only if new city is searched
             if (btnClicked === true){
                 // get specific location information
-                cityName = (data[0].local_names.feature_name);
+                cityName = data[0].name;
                 var otherName;
                 if ((data[0].country) == "US") {
                     otherName = data[0].state;
                 } else {
                     otherName = data[0].country;
                 }
-               //  push search to searches array
+               //  push search to searches array only if not already in history
+                var alreadyInHistory = searches.some(function(s) {
+                    return s.city === cityName && s.other === otherName;
+                });
+                if (!alreadyInHistory) {
                 searches.push({
                     city: cityName,
                     other: otherName
                 });
+                }
                 //  push to local storage
                 localStorage.setItem('searches', JSON.stringify(searches));
                 renderSearchHistory(); 
