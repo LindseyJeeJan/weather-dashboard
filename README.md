@@ -4,15 +4,8 @@
 
 Description: This single page application uses the OpenWeather API to retrieve weather data. Users may type in a city name in the Search field and click on the Search button. The city weather information is retrieved along with a 5 day forecast. Any time a city is searched for, it is saved in a list below the search. The allows the user to click on a recently searched city to reload the data. 
 
-Desktop:
 
-<img src="assets/images/desktop.png" width="400">
-
-Mobile:
-
-<img src="assets/images/mobile.png" width="300">
-
-Copyright (c)2021 Lindsey Lauria
+Copyright (c)2026 Lindsey Lauria
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
