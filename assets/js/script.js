@@ -265,10 +265,23 @@ function init() {
     // If search history exist in localStorage, update the searches array
     if (storedSearchHistory !== null) {
         searches = storedSearchHistory;
+    } else {
+        // Prepopulate default cities on first load
+        searches = [
+            { city: 'Los Angeles', other: 'California' },
+            { city: 'New York', other: 'New York' },
+            { city: 'Miami', other: 'Florida' },
+            { city: 'Chicago', other: 'Illinois' }
+        ];
+        localStorage.setItem('searches', JSON.stringify(searches));
     }
     // render search history to the page
     btnClicked = false;
     renderSearchHistory();
+    // Auto-select the first city on load
+    if (searches.length > 0) {
+        cityList.find('li:not(.empty-list)').first().trigger('click');
+    }
 }
 
 init();
