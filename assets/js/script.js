@@ -263,7 +263,7 @@ function init() {
     // Get search history from localStorage
     var storedSearchHistory = JSON.parse(localStorage.getItem('searches'));
     // If search history exist in localStorage, update the searches array
-    if (storedSearchHistory !== null) {
+    if (storedSearchHistory !== null && storedSearchHistory.length > 0) {
         searches = storedSearchHistory;
     } else {
         // Prepopulate default cities on first load
