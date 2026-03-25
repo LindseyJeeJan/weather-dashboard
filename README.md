@@ -1,4 +1,4 @@
-# weather-dashboard
+# Weather Dashboard
 
 [View deployed application](https://lindseyjeejan.github.io/weather-dashboard/)
 
