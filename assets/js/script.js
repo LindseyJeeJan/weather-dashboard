@@ -157,70 +157,73 @@ function convertToLongLat(city){
         })
 }
     
-// Get data from the Open Weather API; excluding some data and in imperial format
+// Get data from the Open Weather API in imperial format
+// Uses data/2.5/weather (current) and data/2.5/forecast (5-day) — both free tier
 function getApi(locationCoordinates) {
     var latitudeVal = locationCoordinates[0];
     var longitudeVal = locationCoordinates[1];
-    var requestUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latitudeVal + '&lon=' + longitudeVal + '&exclude=minutely,hourly,alerts&units=imperial&appid=ce4222a2bf38275175e19449b4ee48a5';
-  fetch(requestUrl)
-    .then(function (response) {
-        if (response.status === 404) {
-            // If city information is not found display error message
-            errorCitySearch.show();
-        }
-        if (response.status === 200) {
-            // If city information is found hide error message
+    var apiKey = 'ce4222a2bf38275175e19449b4ee48a5';
+    var weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + latitudeVal + '&lon=' + longitudeVal + '&units=imperial&appid=' + apiKey;
+    var forecastUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + latitudeVal + '&lon=' + longitudeVal + '&units=imperial&appid=' + apiKey;
+
+    Promise.all([fetch(weatherUrl), fetch(forecastUrl)])
+        .then(function(responses) {
+            return Promise.all([responses[0].json(), responses[1].json()]);
+        })
+        .then(function(results) {
+            var current = results[0];
+            var forecastData = results[1];
+
+            if (current.cod !== 200) {
+                errorCitySearch.show();
+                return;
+            }
             resetErrorMessages();
-        }
-      return response.json();
-    })
-    .then(function (data) {
-        // Write information to the main weather card with data from API  
-        humidity.text('Humidity: ' + data.current.humidity + '%');
-        windSpeed.text('Wind Speed: ' + data.current.wind_speed + 'mph');
-        $('#uv-index').text('UV Index: ');
-        uvIndex.text(data.current.uvi);
 
-        var icon = data.current.weather[0].icon;
-        var iconLocation = ("https://openweathermap.org/img/wn/" + icon +"@2x.png");
-        weatherIcon.attr('src', iconLocation);
-        
-       // Get the UV index and display the appropriate badge color according to the conditions
-        var uvindex = data.current.uvi;
-        renderUvIndexColor(uvindex);
+            // Current weather
+            humidity.text('Humidity: ' + current.main.humidity + '%');
+            windSpeed.text('Wind Speed: ' + current.wind.speed + ' mph');
+            $('#uv-index').text('UV Index: N/A');
+            uvIndex.text('');
+            uvIndex.removeClass('badge-success badge-warning badge-danger');
 
-        // Display temperature with one decimal point
-        var temp = data.current.temp;
-        temp = parseFloat(temp).toFixed(0);
-        temperature.text(temp + 'ºF');
+            var icon = current.weather[0].icon;
+            weatherIcon.attr('src', 'https://openweathermap.org/img/wn/' + icon + '@2x.png');
 
-        // Store the array of forecasts
-        var forecasts = data.daily;
-        var counter = 0;
-        // Loop through the forecast array. For the first 5, write the data to the bootstrap cards in the UI. Add temp, humidity and the icon from the forecast
-        for (var i = 0; i < 5; i++) {
-            // store the forecast data 
-            var forecastTemp = forecasts[i].temp.day;
-            forecastTemp = parseFloat(forecastTemp).toFixed(0);
-            var forecastHumidity = forecasts[i].humidity;
-            var forecastIcon = forecasts[i].weather[0].icon;
-            var forecastIconLocation = ("https://openweathermap.org/img/wn/" + forecastIcon +"@2x.png");
-            
-            // write the forecast data to the page
+            var temp = parseFloat(current.main.temp).toFixed(0);
+            temperature.text(temp + 'ºF');
+
+            // 5-day forecast: pick the first reading per future day
+            var today = moment().format('YYYY-MM-DD');
+            var dailyForecasts = [];
+            var seenDates = {};
+            for (var j = 0; j < forecastData.list.length && dailyForecasts.length < 5; j++) {
+                var entry = forecastData.list[j];
+                var dateStr = entry.dt_txt.split(' ')[0];
+                if (dateStr > today && !seenDates[dateStr]) {
+                    seenDates[dateStr] = true;
+                    dailyForecasts.push(entry);
+                }
+            }
+
             $('.forecast h2.mb-4').text('5-Day Forecast');
             $('.card').addClass('bg-success');
-            var forecastContainer = $('.card')[counter];
-            $(forecastContainer).find('.temperature').text(forecastTemp + 'ºF');
-            $(forecastContainer).find('.humidity').text('Humidity: ' + forecastHumidity + '%');
-            $(forecastContainer).find('img.card-image').attr('src', forecastIconLocation);
+            for (var i = 0; i < dailyForecasts.length; i++) {
+                var forecastTemp = parseFloat(dailyForecasts[i].main.temp).toFixed(0);
+                var forecastHumidity = dailyForecasts[i].main.humidity;
+                var forecastIcon = dailyForecasts[i].weather[0].icon;
+                var forecastContainer = $('.card')[i];
+                $(forecastContainer).find('.temperature').text(forecastTemp + 'ºF');
+                $(forecastContainer).find('.humidity').text('Humidity: ' + forecastHumidity + '%');
+                $(forecastContainer).find('img.card-image').attr('src', 'https://openweathermap.org/img/wn/' + forecastIcon + '@2x.png');
+            }
 
-            // increment counter for looping
-            counter++;
-        }
-        // display these values from moment
-        showTodaysDate();
-        showForecastDates();
-    });
+            showTodaysDate();
+            showForecastDates();
+        })
+        .catch(function() {
+            errorCitySearch.show();
+        });
 }
 
 // color code the uv index
